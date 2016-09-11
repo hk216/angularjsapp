@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js" ></script>
+    <script src="app.js"></script>
+
+    <script>
+    var loopCtrl = function($scope) {
+     $scope.week = [
+      {"jp":"月","en":"Monday"},
+      {"jp":"火","en":"Tuesday"},
+      {"jp":"水","en":"Wednesday"},
+      {"jp":"木","en":"Thursday"},
+      {"jp":"金","en":"Friday"},
+      {"jp":"土","en":"Saturday"},
+      {"jp":"日","en":"Sunday"}
+     ];
+    }
+    </script>
+    <script>
+    var app = angular.module('myApp', []);
+    app.controller('myController', function() {
+      this.message = 'Hello world!';
+    });
+    </script>
+</head>
+<body ng-app = myApp> <!--ng-appに名前を付け、1個としなければならないのでは？-->
+
+  {{2+3}}
+
+  <!--<div ng-app="myApp">-->
+   <div ng-controller="myController as myCtrl">
+    {{myCtrl.message}}
+   </div>
+ <!--</div>-->
+
+  <form novalidate name="myForm">
+    <p>名前:<input type="text" name="name" ng-model="name" required ng-minlength="2" ng-maxlength="5"></p>
+    <p ng-show="myForm.name.$error.required">未入力</p>
+    <p ng-show="myForm.name.$error.minlength">2文字未満</p>
+    <p ng-show="myForm.name.$error.maxlength">5文字を超えている</p>
+   </form>
+
+
+    <div ng-controller="loopCtrl">
+     <p>{{week.length}} days</p>
+      <ul>
+       <li ng-repeat="day in week">{{day.jp}} {{day.en}}</li>
+      </ul>
+    </div>
+
+    <script src="script.js"></script>
+
+    <div ng-controller="searchCtrl">
+     <p><input type="text" ng-model="query.name"></p>
+     <ul>
+      <li ng-repeat="item in items|filter:query">{{item.name}} {{item.price}}</li>
+     </ul>
+    </div>
+
+  <div ng-controller="firstCtrl">
+    <p>{{hello}}</p>
+  </div>
+
+  <div ng-controller="secondCtrl">
+    <p>{{hello}}</p>
+  </div>
+
+  <div ng-controller="thirdCtrl">
+    <p>{{hello}}</p>
+  </div>
+
+  <div>
+    <input type="text" ng-model="name">
+    <p>こんにちは {{name}} さん!</p>
+  </div>
+
+  <!--MonaCtrlコントローラーを適用-->
+  <div ng-controller="MonaCtrl">
+    <p>{{getMonaca()}}</p>
+  </div>
+
+</body>
+</html>
